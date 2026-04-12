@@ -1,0 +1,37 @@
+{
+  "turnstiles": [
+    {
+      "name": "Главный вход",
+      "location": "Первый этаж, холл",
+      "status": "open",
+      "id": "1"
+    },
+    {
+      "name": "Запасной выход",
+      "location": "Первый этаж, задняя часть",
+      "status": "blocked",
+      "id": "2"
+    },
+    {
+      "name": "Вход в офис",
+      "location": "Третий этаж, приёмная",
+      "status": "open",
+      "id": "3"
+    }
+  ],
+  "employees": [
+    {
+      "id": "2",
+      "lastName": "Петров"
+    },
+    {
+      "id": "3",
+      "lastName": "Сидоров"
+    },
+    {
+      "lastName": "Иванов",
+      "id": "fGjtNejTmJM"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
