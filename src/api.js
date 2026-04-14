@@ -46,8 +46,6 @@ export function getErrorMessage(error) {
         const statusText = error.response.statusText || '';
         
         switch (status) {
-            case 400:
-                return { message: `Ошибка запроса (400): проверьте правильность данных`, status };
             case 401:
                 return { message: `Ошибка авторизации (401): требуется вход в систему`, status };
             case 403:
@@ -58,15 +56,13 @@ export function getErrorMessage(error) {
                 return { message: `Конфликт данных (409): возможно, такой элемент уже существует`, status };
             case 500:
                 return { message: `Внутренняя ошибка сервера (500): попробуйте позже`, status };
-            case 502:
-                return { message: `Ошибка шлюза (502): сервер временно недоступен`, status };
             case 503:
                 return { message: `Сервис недоступен (503): попробуйте позже`, status };
             default:
                 return { message: `Ошибка сервера (${status}${statusText ? ': ' + statusText : ''})`, status };
         }
     } else if (error.request) {
-        return { message: `Сервер не отвечает (нет соединения). Убедитесь, что json-server запущен.`, status: 0 };
+        return { message: `Сервер не отвечает (нет соединения). Убедитесь, что json-server запущен.`, status: 503 };
     } else {
         return { message: `Ошибка: ${error.message}`, status: 0 };
     }

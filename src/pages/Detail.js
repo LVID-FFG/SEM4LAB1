@@ -13,7 +13,7 @@ const Detail = () => {
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [status, setStatus] = useState("open");
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false); //идёт ли сейчас отправка формы
     const { updateTurnstile } = useData();
 
     // Загрузка данных турникета при монтировании
