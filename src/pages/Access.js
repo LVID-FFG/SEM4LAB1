@@ -1,3 +1,4 @@
+// Access.js - Страница имитации прохода через турникет
 import React, { useState, useRef } from 'react';
 import { useData } from '../App';
 
@@ -8,11 +9,14 @@ const Access = () => {
     const selectedTurnstileRef = useRef(null);
     const lastNameRef = useRef(null);
 
+    // Обработчик попытки прохода
     async function attemptAccess(e) {
         e.preventDefault();
         
         const turnstileId = selectedTurnstileRef.current.value;
         const lastName = lastNameRef.current.value.trim();
+        
+        console.log('[Access] Попытка прохода:', { turnstileId, lastName });
         
         if (!turnstileId) {
             setMessage("Выберите турникет");
@@ -28,28 +32,39 @@ const Access = () => {
 
         const turnstile = turnstiles.find(t => t.id === turnstileId);
         
+        // Проверка статуса турникета
         if (turnstile.status === "blocked") {
-            setMessage(`ТУРНИКЕТ ЗАБЛОКИРОВАН. Проход через "${turnstile.name}" невозможен.`);
+            const msg = `ТУРНИКЕТ ЗАБЛОКИРОВАН. Проход через "${turnstile.name}" невозможен.`;
+            console.log('[Access]', msg);
+            setMessage(msg);
             setMessageType("error");
             return;
         }
 
+        // Поиск сотрудника по фамилии
         const employee = employees.find(emp => emp.lastName.toLowerCase() === lastName.toLowerCase());
         
         if (employee) {
-            setMessage(`УСПЕХ. Сотрудник ${employee.lastName} прошёл через "${turnstile.name}".`);
+            const msg = `УСПЕХ. Сотрудник ${employee.lastName} прошёл через "${turnstile.name}".`;
+            console.log('[Access]', msg);
+            setMessage(msg);
             setMessageType("success");
         } else {
-            setMessage(`ОТКАЗ. Сотрудник с фамилией "${lastName}" не найден в базе.`);
+            const msg = `ОТКАЗ. Сотрудник с фамилией "${lastName}" не найден в базе.`;
+            console.log('[Access]', msg);
+            setMessage(msg);
             setMessageType("error");
         }
         
         lastNameRef.current.value = "";
         
+        // Автоматически скрываем сообщение через 5 секунд
         setTimeout(() => {
             setMessage("");
         }, 5000);
     }
+
+    console.log('[Access] Отображение страницы с', turnstiles.length, 'турникетами и', employees.length, 'сотрудниками');
 
     return (
         <div>

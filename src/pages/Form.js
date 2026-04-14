@@ -1,3 +1,4 @@
+// Form.js - Страница добавления нового турникета
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../App';
@@ -12,6 +13,7 @@ const Form = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { addTurnstile } = useData();
 
+    // Обработчик отправки формы
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -27,35 +29,55 @@ const Form = () => {
         setIsSubmitting(true);
 
         const newTurnstile = { name, location, status };
+        console.log('[Form] Отправка нового турникета:', newTurnstile);
 
         try {
             await addTurnstile(newTurnstile);
+            console.log('[Form] Турникет успешно добавлен');
             navigate('/');
         } catch (error) {
-            console.error("Ошибка создания:", error);
+            console.error('[Form] Ошибка добавления турникета:', error);
             setError(error.message || "Ошибка при добавлении турникета");
         } finally {
             setIsSubmitting(false);
         }
     };
 
+    console.log('[Form] Отображение формы добавления');
+
     return (
         <div>
             <h1>Добавление турникета</h1>
-            {error && <p style={{ color: "red", backgroundColor: "#f8d7da", padding: "10px", borderRadius: "4px" }}>{error}</p>}
+            {error && (
+                <p style={{ color: "red", backgroundColor: "#f8d7da", padding: "10px", borderRadius: "4px" }}>
+                    {error}
+                </p>
+            )}
             <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: "10px" }}>
                     <label>
                         Название турникета:
                         <br />
-                        <input type="text" ref={nameRef} required style={{ width: "300px" }} disabled={isSubmitting} />
+                        <input 
+                            type="text" 
+                            ref={nameRef} 
+                            required 
+                            style={{ width: "300px" }} 
+                            disabled={isSubmitting} 
+                        />
                     </label>
                 </div>
                 <div style={{ marginBottom: "10px" }}>
                     <label>
                         Расположение:
                         <br />
-                        <input type="text" ref={locationRef} required style={{ width: "300px" }} disabled={isSubmitting} />
+                        <input 
+                            type="text" 
+                            ref={locationRef} 
+                            required 
+                            style={{ width: "300px" }} 
+                            disabled={isSubmitting} 
+                        />
                     </label>
                 </div>
                 <div style={{ marginBottom: "10px" }}>
@@ -70,6 +92,14 @@ const Form = () => {
                 </div>
                 <button type="submit" disabled={isSubmitting}>
                     {isSubmitting ? <><Spinner /> Добавление...</> : "Добавить турникет"}
+                </button>
+                <button 
+                    type="button" 
+                    onClick={() => navigate('/')} 
+                    style={{ marginLeft: "10px" }}
+                    disabled={isSubmitting}
+                >
+                    Отмена
                 </button>
             </form>
         </div>

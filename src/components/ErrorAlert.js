@@ -28,7 +28,7 @@ const ErrorAlert = ({ message, onClose }) => {
                         color: '#721c24'
                     }}
                 >
-                    ×
+                    
                 </button>
             )}
         </div>
