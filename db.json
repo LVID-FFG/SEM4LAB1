@@ -3,34 +3,192 @@
     {
       "name": "Главный вход",
       "location": "Первый этаж, холл",
-      "status": "blocked",
+      "type": "turnstile",
+      "status": "open",
+      "lat": 55.751244,
+      "lng": 37.618423,
       "id": "1"
     },
     {
       "name": "Запасной выход",
       "location": "Первый этаж, задняя часть",
+      "type": "gate",
       "status": "open",
+      "lat": 55.7515,
+      "lng": 37.6188,
       "id": "2"
     },
     {
-      "name": "Вход в офис",
-      "location": "Третий этаж, приёмная",
+      "name": "Въезд в паркинг",
+      "location": "Подземный этаж, въезд",
+      "type": "barrier",
       "status": "open",
+      "lat": 55.7511,
+      "lng": 37.6181,
       "id": "3"
+    },
+    {
+      "name": "фыа",
+      "location": "аыф",
+      "type": "turnstile",
+      "status": "blocked",
+      "id": "1777273550971",
+      "lat": 55.774,
+      "lng": 47.7547
     }
   ],
   "employees": [
     {
+      "id": "1",
+      "lastName": "Иванов",
+      "firstName": "Иван",
+      "middleName": "Иванович",
+      "position": "Системный администратор",
+      "status": "blocked"
+    },
+    {
       "id": "2",
-      "lastName": "Петров"
+      "lastName": "Петров",
+      "firstName": "Пётр",
+      "middleName": "Петрович",
+      "position": "Охранник",
+      "status": "active"
     },
     {
       "id": "3",
-      "lastName": "Сидоров"
+      "lastName": "Сидоров",
+      "firstName": "Сидор",
+      "middleName": "Сидорович",
+      "position": "Менеджер",
+      "status": "blocked"
+    }
+  ],
+  "events": [
+    {
+      "eventNumber": 1777278776106,
+      "timestamp": "2026-04-27T08:32:56.106Z",
+      "turnstileName": "Запасной выход",
+      "turnstileType": "gate",
+      "employeeName": "Петров Пётр Петрович",
+      "employeePosition": "Охранник",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "jGU_i6lWGcI"
     },
     {
-      "lastName": "Иванов",
-      "id": "fGjtNejTmJM"
+      "eventNumber": 1777278796089,
+      "timestamp": "2026-04-27T08:33:16.089Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Петров Пётр Петрович",
+      "employeePosition": "Охранник",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "gBk5qQ1jR7w"
+    },
+    {
+      "eventNumber": 1777278803385,
+      "timestamp": "2026-04-27T08:33:23.385Z",
+      "turnstileName": "Запасной выход",
+      "turnstileType": "gate",
+      "employeeName": "Сидоров Сидор Сидорович",
+      "employeePosition": "Менеджер",
+      "result": "blocked_employee",
+      "description": "Сотрудник заблокирован",
+      "id": "eIlizigS-9U"
+    },
+    {
+      "eventNumber": 1777279374040,
+      "timestamp": "2026-04-27T08:42:54.040Z",
+      "turnstileName": "Запасной выход",
+      "turnstileType": "gate",
+      "employeeName": "Сидоров Сидор Сидорович",
+      "employeePosition": "Менеджер",
+      "result": "blocked_employee",
+      "description": "Сотрудник заблокирован",
+      "id": "Heu28Zy4tqE"
+    },
+    {
+      "eventNumber": 1777279377909,
+      "timestamp": "2026-04-27T08:42:57.909Z",
+      "turnstileName": "Запасной выход",
+      "turnstileType": "gate",
+      "employeeName": "Петров Пётр Петрович",
+      "employeePosition": "Охранник",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "AoXkSe4qi64"
+    },
+    {
+      "eventNumber": 1777279381372,
+      "timestamp": "2026-04-27T08:43:01.372Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Петров Пётр Петрович",
+      "employeePosition": "Охранник",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "nxagod_xq8Q"
+    },
+    {
+      "eventNumber": 1777279384477,
+      "timestamp": "2026-04-27T08:43:04.477Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Сидоров Сидор Сидорович",
+      "employeePosition": "Менеджер",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "zPZDVurTJDc"
+    },
+    {
+      "eventNumber": 1777272860557,
+      "timestamp": "2026-04-27T06:54:20.557Z",
+      "turnstileName": "Запасной выход",
+      "turnstileType": "gate",
+      "employeeName": "Петров Пётр Петрович",
+      "employeePosition": "Охранник",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777272860563"
+    },
+    {
+      "eventNumber": 1777273596986,
+      "timestamp": "2026-04-27T07:06:36.986Z",
+      "turnstileName": "Запасной выход",
+      "turnstileType": "gate",
+      "employeeName": "Петров Пётр Петрович",
+      "employeePosition": "Охранник",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777273596990"
+    },
+    {
+      "eventNumber": 1777273600632,
+      "timestamp": "2026-04-27T07:06:40.632Z",
+      "turnstileName": "Запасной выход",
+      "turnstileType": "gate",
+      "employeeName": "Сидоров Сидор Сидорович",
+      "employeePosition": "Менеджер",
+      "result": "blocked_employee",
+      "description": "Сотрудник заблокирован",
+      "id": "1777273600637"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "$2b$10$1Hj7cevxJZZaS55Ye24T7uF5LDLPthfOHaiKDTNzwu7tfII5CUYgm",
+      "role": "admin",
+      "fullName": "Администратор системы"
+    },
+    {
+      "id": "2",
+      "username": "guard",
+      "password": "$2b$10$1Hj7cevxJZZaS55Ye24T7uDE9rDWywEwozF4lHohRJ.W6VWDMJ3ve",
+      "role": "guard",
+      "fullName": "Охранник Петров"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

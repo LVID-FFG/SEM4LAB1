@@ -1,9 +1,8 @@
-// api.js - Модуль для работы с REST API (json-server)
+// api.js - Модуль для работы с REST API
 import axios from 'axios';
 
 const API_URL = 'http://localhost:5000';
 
-// Создаём экземпляр axios с базовыми настройками
 const api = axios.create({
     baseURL: API_URL,
     headers: {
@@ -11,8 +10,12 @@ const api = axios.create({
     }
 });
 
-// Логирование запросов - выводим в консоль метод и URL
+// Добавление JWT токена ко всем запросам
 api.interceptors.request.use(request => {
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+        request.headers['Authorization'] = `Bearer ${token}`;
+    }
     console.log(`[API] ${request.method?.toUpperCase()} ${request.url}`);
     if (request.data) {
         console.log('[API] Данные запроса:', request.data);
@@ -20,10 +23,9 @@ api.interceptors.request.use(request => {
     return request;
 });
 
-// Логирование ответов - выводим статус и данные
 api.interceptors.response.use(
     response => {
-        console.log(`[API] Ответ ${response.status} от ${response.config.url}:`, response.data);
+        console.log(`[API] Ответ ${response.status} от ${response.config.url}`);
         return response;
     },
     error => {
@@ -38,165 +40,163 @@ api.interceptors.response.use(
     }
 );
 
-// Функция для получения текста ошибки по объекту ошибки axios
-// Возвращает объект с сообщением и статус-кодом
 export function getErrorMessage(error) {
     if (error.response) {
         const status = error.response.status;
-        const statusText = error.response.statusText || '';
+        const serverMessage = error.response.data?.error || '';
         
         switch (status) {
-            case 401:
-                return { message: `Ошибка авторизации (401): требуется вход в систему`, status };
-            case 403:
-                return { message: `Доступ запрещён (403): у вас нет прав для этого действия`, status };
-            case 404:
-                return { message: `Данные не найдены (404): запрашиваемый ресурс отсутствует`, status };
-            case 409:
-                return { message: `Конфликт данных (409): возможно, такой элемент уже существует`, status };
-            case 500:
-                return { message: `Внутренняя ошибка сервера (500): попробуйте позже`, status };
-            case 503:
-                return { message: `Сервис недоступен (503): попробуйте позже`, status };
-            default:
-                return { message: `Ошибка сервера (${status}${statusText ? ': ' + statusText : ''})`, status };
+            case 400: return { message: serverMessage || 'Некорректный запрос (400 Bad Request)', status };
+            case 401: return { message: serverMessage || 'Ошибка авторизации (401): требуется вход в систему', status };
+            case 403: return { message: serverMessage || 'Доступ запрещён (403): у вас нет прав', status };
+            case 404: return { message: serverMessage || 'Данные не найдены (404)', status };
+            case 500: return { message: serverMessage || 'Внутренняя ошибка сервера (500)', status };
+            default: return { message: serverMessage || `Ошибка сервера (${status})`, status };
         }
     } else if (error.request) {
-        return { message: `Сервер не отвечает (нет соединения). Убедитесь, что json-server запущен.`, status: 503 };
+        return { message: 'Сервер не отвечает. Убедитесь, что сервер запущен.', status: 503 };
     } else {
         return { message: `Ошибка: ${error.message}`, status: 0 };
     }
 }
 
-// API методы для работы с турникетами
+// API для турникетов
 export const turnstileApi = {
-    // Получить все турникеты
     getAll: async () => {
         try {
-            const response = await api.get('/turnstiles');
+            const response = await api.get('/api/turnstiles');
             return { data: response.data, error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { data: null, error: err.message, status: err.status };
-        }
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
     },
-    
-    // Получить один турникет по ID
     getOne: async (id) => {
         try {
-            const response = await api.get(`/turnstiles/${id}`);
+            const response = await api.get(`/api/turnstiles/${id}`);
             return { data: response.data, error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { data: null, error: err.message, status: err.status };
-        }
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
     },
-    
-    // Создать новый турникет
     create: async (turnstile) => {
         try {
-            const response = await api.post('/turnstiles', turnstile);
+            const response = await api.post('/api/turnstiles', turnstile);
             return { data: response.data, error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { data: null, error: err.message, status: err.status };
-        }
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
     },
-    
-    // Обновить существующий турникет
     update: async (id, turnstile) => {
         try {
-            const response = await api.put(`/turnstiles/${id}`, turnstile);
+            const response = await api.put(`/api/turnstiles/${id}`, turnstile);
             return { data: response.data, error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { data: null, error: err.message, status: err.status };
-        }
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
     },
-    
-    // Удалить турникет по ID
     delete: async (id) => {
         try {
-            const response = await api.delete(`/turnstiles/${id}`);
-            return { error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { error: err.message, status: err.status };
-        }
+            await api.delete(`/api/turnstiles/${id}`);
+            return { error: null, status: 204 };
+        } catch (error) { const err = getErrorMessage(error); return { error: err.message, status: err.status }; }
     }
 };
 
-// API методы для работы с сотрудниками
+// API для сотрудников
 export const employeeApi = {
-    // Получить всех сотрудников
     getAll: async () => {
         try {
-            const response = await api.get('/employees');
+            const response = await api.get('/api/employees');
             return { data: response.data, error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { data: null, error: err.message, status: err.status };
-        }
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
     },
-    
-    // Создать нового сотрудника
     create: async (employee) => {
         try {
-            const response = await api.post('/employees', employee);
+            const response = await api.post('/api/employees', employee);
             return { data: response.data, error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { data: null, error: err.message, status: err.status };
-        }
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
     },
-    
-    // Удалить сотрудника по ID
+    update: async (id, employee) => {
+        try {
+            const response = await api.put(`/api/employees/${id}`, employee);
+            return { data: response.data, error: null, status: response.status };
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
+    },
     delete: async (id) => {
         try {
-            const response = await api.delete(`/employees/${id}`);
-            return { error: null, status: response.status };
-        } catch (error) {
-            const err = getErrorMessage(error);
-            return { error: err.message, status: err.status };
-        }
+            await api.delete(`/api/employees/${id}`);
+            return { error: null, status: 204 };
+        } catch (error) { const err = getErrorMessage(error); return { error: err.message, status: err.status }; }
     }
 };
 
-// Фиктивная аутентификация (только admin/admin)
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'admin';
-const FAKE_TOKEN = 'admin-token-12345';
+// API для событий
+export const eventApi = {
+    getAll: async () => {
+        try {
+            const response = await api.get('/api/events');
+            return { data: response.data, error: null, status: response.status };
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
+    },
+    create: async (event) => {
+        try {
+            const response = await api.post('/api/events', event);
+            return { data: response.data, error: null, status: response.status };
+        } catch (error) { const err = getErrorMessage(error); return { data: null, error: err.message, status: err.status }; }
+    }
+};
 
+// Аутентификация через JWT
 export const auth = {
-    // Вход в систему
-    login: (username, password) => {
-        console.log(`[Auth] Попытка входа: ${username}`);
-        if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-            localStorage.setItem('auth_token', FAKE_TOKEN);
-            localStorage.setItem('auth_user', username);
-            console.log('[Auth] Вход выполнен успешно (статус: 200 OK)');
-            return { success: true, error: null, status: 200 };
+    login: async (username, password) => {
+        try {
+            console.log(`[Auth] Попытка входа: ${username}`);
+            const response = await api.post('/api/login', { username, password });
+            
+            const { token, user } = response.data;
+            localStorage.setItem('auth_token', token);
+            localStorage.setItem('auth_user', JSON.stringify(user));
+            
+            console.log(`[Auth] Вход выполнен успешно (${response.status}), роль: ${user.role}`);
+            return { success: true, error: null, status: response.status, user };
+        } catch (error) {
+            const err = getErrorMessage(error);
+            console.log(`[Auth] Ошибка входа (${err.status}): ${err.message}`);
+            return { success: false, error: err.message, status: err.status };
         }
-        console.log('[Auth] Ошибка входа: неверные учётные данные (статус: 401 Unauthorized)');
-        return { success: false, error: 'Неверный логин или пароль (401 Unauthorized)', status: 401 };
     },
     
-    // Выход из системы
     logout: () => {
         console.log('[Auth] Выход из системы');
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
     },
     
-    // Проверка авторизации
     isAuthenticated: () => {
         const token = localStorage.getItem('auth_token');
-        return token === FAKE_TOKEN;
+        if (!token) return false;
+        
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const expiry = payload.exp * 1000;
+            return Date.now() < expiry;
+        } catch (e) {
+            return false;
+        }
     },
     
-    // Получить имя текущего пользователя
     getCurrentUser: () => {
-        return localStorage.getItem('auth_user');
+        const userStr = localStorage.getItem('auth_user');
+        if (!userStr) return null;
+        try {
+            const user = JSON.parse(userStr);
+            return user.fullName || user.username;
+        } catch (e) {
+            return null;
+        }
+    },
+    
+    getUserRole: () => {
+        const userStr = localStorage.getItem('auth_user');
+        if (!userStr) return null;
+        try {
+            const user = JSON.parse(userStr);
+            return user.role;
+        } catch (e) {
+            return null;
+        }
     }
 };
 

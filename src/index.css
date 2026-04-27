@@ -7,6 +7,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.leaflet-container {
+  height: 500px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.map-page {
+  padding: 20px;
+}
+
+.map-page h1 {
+  margin-bottom: 20px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

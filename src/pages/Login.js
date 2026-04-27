@@ -28,25 +28,25 @@ const Login = () => {
     }, [location, navigate]);
 
     // Обработчик отправки формы входа
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
         
         console.log(`[Login] Попытка входа для пользователя: ${username}`);
         
-        setTimeout(() => {
-            const result = auth.login(username, password);
-            if (result.success) {
-                console.log(`[Login] Вход выполнен успешно (${result.status})`);
-                const from = location.state?.from || '/';
-                navigate(from, { replace: true });
-            } else {
-                console.log(`[Login] Ошибка входа (${result.status}):`, result.error);
-                setError(result.error);
-                setIsLoading(false);
-            }
-        }, 500);
+        const result = await auth.login(username, password);
+        
+        if (result.success) {
+            console.log(`[Login] Вход выполнен успешно (${result.status})`);
+            const from = location.state?.from || '/';
+            navigate(from, { replace: true });
+        } else {
+            console.log(`[Login] Ошибка входа (${result.status}):`, result.error);
+            setError(result.error);
+        }
+        
+        setIsLoading(false);
     };
 
     console.log('[Login] Отображение страницы входа');
@@ -54,7 +54,6 @@ const Login = () => {
     return (
         <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
             <h2>Вход в систему СКУД</h2>
-            <p style={{ color: '#666' }}>Используйте admin / admin</p>
             
             {error && (
                 <div style={{ 

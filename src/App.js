@@ -5,34 +5,41 @@ import Home from "./pages/Home";
 import Form from "./pages/Form";
 import Detail from "./pages/Detail";
 import Employees from "./pages/Employees";
+import EmployeeDetail from "./pages/EmployeeDetail";
 import Access from "./pages/Access";
 import Login from "./pages/Login";
-import { turnstileApi, employeeApi, auth } from "./api";
+import Map from "./pages/Map";
+import History from "./pages/History";
+import { turnstileApi, employeeApi, eventApi, auth } from "./api";
 import Spinner from "./components/Spinner";
 
-// Контекст для передачи данных между компонентами
 export const DataContext = createContext();
 export const useData = () => useContext(DataContext);
 
-// Компонент навигационного меню
-const Navigation = ({ onLogout, currentUser }) => {
+const Navigation = ({ onLogout, currentUser, userRole }) => {
+    const isAdmin = userRole === 'admin';
+
     return (
         <nav style={{ marginBottom: "20px", borderBottom: "1px solid #ccc", paddingBottom: "10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
                 <Link to="/" style={{ marginRight: "15px" }}>Турникеты</Link>
                 <Link to="/employees" style={{ marginRight: "15px" }}>Сотрудники</Link>
+                <Link to="/map" style={{ marginRight: "15px" }}>Карта</Link>
                 <Link to="/access" style={{ marginRight: "15px" }}>Попытка прохода</Link>
-                <Link to="/add">Добавить турникет</Link>
+                <Link to="/history" style={{ marginRight: "15px" }}>История</Link>
+                {isAdmin && <Link to="/add">Добавить турникет</Link>}
             </div>
             <div>
-                <span style={{ marginRight: "15px" }}>Пользователь: {currentUser || 'admin'}</span>
+                <span style={{ marginRight: "15px" }}>
+                    Пользователь: {currentUser || 'admin'}
+                    {userRole && <span style={{ color: '#666', marginLeft: '8px' }}>({userRole === 'admin' ? 'Администратор' : 'Охранник'})</span>}
+                </span>
                 <button onClick={onLogout}>Выйти</button>
             </div>
         </nav>
     );
 };
 
-// Компонент для защиты маршрутов от неавторизованного доступа
 const ProtectedRoute = ({ children }) => {
     const location = useLocation();
     
@@ -47,17 +54,15 @@ const ProtectedRoute = ({ children }) => {
     return children;
 };
 
-// Основной компонент содержимого приложения (после авторизации)
 const AppContent = () => {
-    // Состояния для хранения данных
     const [turnstiles, setTurnstiles] = useState([]);
     const [employees, setEmployees] = useState([]);
+    const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [globalError, setGlobalError] = useState("");
     const [globalErrorStatus, setGlobalErrorStatus] = useState(null);
     const navigate = useNavigate();
 
-    // При монтировании загружаем данные, если пользователь авторизован
     useEffect(() => {
         if (auth.isAuthenticated()) {
             loadAllData();
@@ -66,22 +71,20 @@ const AppContent = () => {
         }
     }, []);
 
-    // Загрузка всех данных (турникеты и сотрудники)
     async function loadAllData() {
         console.log('[App] Загрузка всех данных...');
         setLoading(true);
         setGlobalError("");
         setGlobalErrorStatus(null);
         
-        // Параллельная загрузка для ускорения
-        const [turnstilesRes, employeesRes] = await Promise.all([
+        const [turnstilesRes, employeesRes, eventsRes] = await Promise.all([
             turnstileApi.getAll(),
-            employeeApi.getAll()
+            employeeApi.getAll(),
+            eventApi.getAll()
         ]);
         
         const errors = [];
         
-        // Обработка результата загрузки турникетов
         if (turnstilesRes.error) {
             console.error(`[App] Ошибка загрузки турникетов (${turnstilesRes.status}):`, turnstilesRes.error);
             errors.push(turnstilesRes.error);
@@ -91,10 +94,8 @@ const AppContent = () => {
             setTurnstiles(turnstilesRes.data);
         }
         
-        // Обработка результата загрузки сотрудников
         if (employeesRes.error) {
             console.error(`[App] Ошибка загрузки сотрудников (${employeesRes.status}):`, employeesRes.error);
-            // Добавляем ошибку только если она не дублируется
             if (!errors.includes(employeesRes.error)) {
                 errors.push(employeesRes.error);
             }
@@ -106,7 +107,16 @@ const AppContent = () => {
             setEmployees(employeesRes.data);
         }
         
-        // Устанавливаем глобальную ошибку, если есть
+        if (eventsRes.error) {
+            console.error(`[App] Ошибка загрузки событий (${eventsRes.status}):`, eventsRes.error);
+            if (!errors.includes(eventsRes.error)) {
+                errors.push(eventsRes.error);
+            }
+        } else {
+            console.log(`[App] История проходов загружена (${eventsRes.status}):`, eventsRes.data.length);
+            setEvents(eventsRes.data);
+        }
+        
         if (errors.length > 0) {
             setGlobalError(errors.join('; '));
         }
@@ -114,11 +124,21 @@ const AppContent = () => {
         setLoading(false);
     }
 
-    // Добавление нового турникета с проверкой на дубликат
+    async function addEvent(eventData) {
+        console.log('[App] Добавление события:', eventData);
+        const result = await eventApi.create(eventData);
+        if (result.error) {
+            console.error(`[App] Ошибка сохранения события (${result.status}):`, result.error);
+            return null;
+        }
+        console.log(`[App] Событие сохранено (${result.status}):`, result.data);
+        setEvents(prev => [...prev, result.data]);
+        return result.data;
+    }
+
     async function addTurnstile(newTurnstile) {
         console.log('[App] Добавление турникета:', newTurnstile);
         
-        // Проверка на дубликат по названию и расположению
         const isDuplicate = turnstiles.some(
             t => t.name.toLowerCase() === newTurnstile.name.toLowerCase() && 
                  t.location.toLowerCase() === newTurnstile.location.toLowerCase()
@@ -144,11 +164,9 @@ const AppContent = () => {
         return result.data;
     }
 
-    // Обновление существующего турникета
     async function updateTurnstile(id, updatedData) {
         console.log('[App] Обновление турникета:', id, updatedData);
         
-        // Проверка на дубликат (исключая текущий турникет)
         const isDuplicate = turnstiles.some(
             t => t.id !== id && 
                  t.name.toLowerCase() === updatedData.name.toLowerCase() && 
@@ -175,7 +193,6 @@ const AppContent = () => {
         return result.data;
     }
 
-    // Удаление турникета
     async function deleteTurnstile(id) {
         console.log('[App] Удаление турникета:', id);
         const result = await turnstileApi.delete(id);
@@ -189,17 +206,18 @@ const AppContent = () => {
         setTurnstiles(turnstiles.filter(t => t.id !== id));
     }
 
-    // Добавление нового сотрудника с проверкой на дубликат
     async function addEmployee(newEmployee) {
         console.log('[App] Добавление сотрудника:', newEmployee);
         
-        // Проверка на дубликат по фамилии
         const isDuplicate = employees.some(
-            e => e.lastName.toLowerCase() === newEmployee.lastName.toLowerCase()
+            e => 
+                e.lastName.toLowerCase() === newEmployee.lastName.toLowerCase() &&
+                e.firstName.toLowerCase() === newEmployee.firstName.toLowerCase() &&
+                (e.middleName || '').toLowerCase() === (newEmployee.middleName || '').toLowerCase()
         );
         
         if (isDuplicate) {
-            const errorMsg = 'Сотрудник с такой фамилией уже существует (409 Conflict)';
+            const errorMsg = 'Сотрудник с таким ФИО уже существует (409 Conflict)';
             console.error('[App] Дубликат сотрудника:', errorMsg);
             setGlobalError(errorMsg);
             setGlobalErrorStatus(409);
@@ -218,7 +236,37 @@ const AppContent = () => {
         return result.data;
     }
 
-    // Удаление сотрудника
+    async function updateEmployee(id, updatedData) {
+        console.log('[App] Обновление сотрудника:', id, updatedData);
+        
+        const isDuplicate = employees.some(
+            e => 
+                e.id !== id &&
+                e.lastName.toLowerCase() === updatedData.lastName.toLowerCase() &&
+                e.firstName.toLowerCase() === updatedData.firstName.toLowerCase() &&
+                (e.middleName || '').toLowerCase() === (updatedData.middleName || '').toLowerCase()
+        );
+        
+        if (isDuplicate) {
+            const errorMsg = 'Сотрудник с таким ФИО уже существует (409 Conflict)';
+            console.error('[App] Дубликат сотрудника:', errorMsg);
+            setGlobalError(errorMsg);
+            setGlobalErrorStatus(409);
+            throw new Error(errorMsg);
+        }
+        
+        const result = await employeeApi.update(id, updatedData);
+        if (result.error) {
+            console.error(`[App] Ошибка обновления сотрудника (${result.status}):`, result.error);
+            setGlobalError(result.error);
+            setGlobalErrorStatus(result.status);
+            throw new Error(result.error);
+        }
+        console.log(`[App] Сотрудник обновлён (${result.status}):`, result.data);
+        setEmployees(employees.map(e => e.id === id ? result.data : e));
+        return result.data;
+    }
+
     async function deleteEmployee(id) {
         console.log('[App] Удаление сотрудника:', id);
         const result = await employeeApi.delete(id);
@@ -232,17 +280,19 @@ const AppContent = () => {
         setEmployees(employees.filter(e => e.id !== id));
     }
 
-    // Обработчик выхода из системы
     function handleLogout() {
         console.log('[App] Выход из системы');
         auth.logout();
         navigate('/login');
     }
 
-    // Значение контекста для дочерних компонентов
+    const userRole = auth.getUserRole();
+    const isAdmin = userRole === 'admin';
+
     const contextValue = {
         turnstiles,
         employees,
+        events,
         loading,
         globalError,
         setGlobalError,
@@ -250,10 +300,12 @@ const AppContent = () => {
         updateTurnstile,
         deleteTurnstile,
         addEmployee,
-        deleteEmployee
+        updateEmployee,
+        deleteEmployee,
+        addEvent,
+        isAdmin
     };
 
-    // Показываем спиннер во время загрузки
     if (loading) {
         return (
             <div style={{ textAlign: "center", padding: "50px" }}>
@@ -266,9 +318,8 @@ const AppContent = () => {
     return (
         <DataContext.Provider value={contextValue}>
             <div style={{ padding: "20px" }}>
-                <Navigation onLogout={handleLogout} currentUser={auth.getCurrentUser()} />
+                <Navigation onLogout={handleLogout} currentUser={auth.getCurrentUser()} userRole={userRole} />
                 
-                {/* Отображение глобальной ошибки, если есть */}
                 {globalError && (
                     <div style={{ 
                         backgroundColor: "#f8d7da", 
@@ -290,20 +341,21 @@ const AppContent = () => {
                     </div>
                 )}
                 
-                {/* Маршруты приложения */}
                 <Routes>
                     <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                     <Route path="/detail/:id" element={<ProtectedRoute><Detail /></ProtectedRoute>} />
                     <Route path="/add" element={<ProtectedRoute><Form /></ProtectedRoute>} />
                     <Route path="/employees" element={<ProtectedRoute><Employees /></ProtectedRoute>} />
+                    <Route path="/employees/:id" element={<ProtectedRoute><EmployeeDetail /></ProtectedRoute>} />
                     <Route path="/access" element={<ProtectedRoute><Access /></ProtectedRoute>} />
+                    <Route path="/map" element={<ProtectedRoute><Map /></ProtectedRoute>} />
+                    <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
                 </Routes>
             </div>
         </DataContext.Provider>
     );
 };
 
-// Корневой компонент приложения
 const App = () => {
     return (
         <Router>
