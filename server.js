@@ -152,7 +152,7 @@ app.post('/api/turnstiles', authenticateToken, requireAdmin, (req, res) => {
     res.status(201).json(newTurnstile);
 });
 
-app.put('/api/turnstiles/:id', authenticateToken, requireAdmin, (req, res) => {
+app.put('/api/turnstiles/:id', authenticateToken, (req, res) => {
     const db = readDB();
     const index = db.turnstiles.findIndex(t => t.id === req.params.id);
     if (index === -1) {

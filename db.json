@@ -2,39 +2,210 @@
   "turnstiles": [
     {
       "name": "Главный вход",
-      "location": "Первый этаж, холл",
+      "location": "1 Корпус, холл",
       "type": "turnstile",
       "status": "open",
-      "lat": 55.751244,
-      "lng": 37.618423,
-      "id": "1"
+      "lat": 54.987668,
+      "lng": 82.906276,
+      "id": "1777471568201"
     },
     {
-      "name": "Запасной выход",
-      "location": "Первый этаж, задняя часть",
-      "type": "gate",
+      "name": "Главный вход",
+      "location": "2 корпус, холл",
+      "type": "turnstile",
       "status": "open",
-      "lat": 55.7515,
-      "lng": 37.6188,
-      "id": "2"
+      "lat": 54.986725,
+      "lng": 82.905534,
+      "id": "1777471668011"
     },
     {
-      "name": "Въезд в паркинг",
-      "location": "Подземный этаж, въезд",
+      "name": "Главный вход",
+      "location": "6 корпус, холл",
+      "type": "turnstile",
+      "status": "open",
+      "lat": 54.986513,
+      "lng": 82.903782,
+      "id": "1777471786883"
+    },
+    {
+      "name": "Главный вход",
+      "location": "3 корпус, холл",
+      "type": "turnstile",
+      "status": "open",
+      "lat": 54.986835,
+      "lng": 82.908373,
+      "id": "1777471860404"
+    },
+    {
+      "name": "Главный вход",
+      "location": "8 корпус, холл",
+      "type": "turnstile",
+      "status": "open",
+      "lat": 54.98635,
+      "lng": 82.907182,
+      "id": "1777471926419"
+    },
+    {
+      "name": "Ворота перед 2 корпусом",
+      "location": "Ул. Карла Маркса",
+      "type": "gate",
+      "status": "blocked",
+      "lat": 54.987497,
+      "lng": 82.904114,
+      "id": "1777472030032"
+    },
+    {
+      "name": "Шлагбаум со стороны Карла Маркса",
+      "location": "Ул. Карла Маркса",
+      "type": "barrier",
+      "status": "blocked",
+      "lat": 54.987909,
+      "lng": 82.904875,
+      "id": "1777472093348"
+    },
+    {
+      "name": "Шлагбаум №1 с ул. Геодезической",
+      "location": "Между 2 и 3 корпусом",
       "type": "barrier",
       "status": "open",
-      "lat": 55.7511,
-      "lng": 37.6181,
-      "id": "3"
+      "lat": 54.987509,
+      "lng": 82.907545,
+      "id": "1777472181836"
     },
     {
-      "name": "фыа",
-      "location": "аыф",
+      "name": "Шлагбаум №2 с ул. Геодезическая",
+      "location": "Перед 3 корпусом",
+      "type": "barrier",
+      "status": "blocked",
+      "lat": 54.987041,
+      "lng": 82.908411,
+      "id": "1777472258185"
+    },
+    {
+      "name": "Шлагбаум во внутренний двор 3 корпуса",
+      "location": "3 корпус",
+      "type": "barrier",
+      "status": "blocked",
+      "lat": 54.986223,
+      "lng": 82.90871,
+      "id": "1777472293795"
+    },
+    {
+      "name": "Шлагбаум №1 с ул. Новогодней",
+      "location": "Между 3 и 4 корпусом",
       "type": "turnstile",
       "status": "blocked",
-      "id": "1777273550971",
-      "lat": 55.774,
-      "lng": 47.7547
+      "lat": 54.985946,
+      "lng": 82.908397,
+      "id": "1777472406255"
+    },
+    {
+      "name": "Калитка №1",
+      "location": "Станция метро Студенческая, вход 4",
+      "type": "gate",
+      "status": "open",
+      "lat": 54.988123,
+      "lng": 82.905361,
+      "id": "1777472492832"
+    },
+    {
+      "name": "Калитка перед 4 корпусом",
+      "location": "Перед 4 корпусом",
+      "type": "gate",
+      "status": "open",
+      "lat": 54.985131,
+      "lng": 82.907108,
+      "id": "1777472592123"
+    },
+    {
+      "name": "Шлагбаум №2 с ул. Новогодней",
+      "location": "Между 4 и 5 корпусом",
+      "type": "barrier",
+      "status": "blocked",
+      "lat": 54.984705,
+      "lng": 82.906308,
+      "id": "1777472693837"
+    },
+    {
+      "name": "Главный вход",
+      "location": "4 корпус, холл",
+      "type": "turnstile",
+      "status": "open",
+      "lat": 54.985227,
+      "lng": 82.906809,
+      "id": "1777472763468"
+    },
+    {
+      "name": "Калитка №1 проспект Карла Маркса",
+      "location": "проспект Карла Маркса",
+      "type": "gate",
+      "status": "open",
+      "lat": 54.986844,
+      "lng": 82.902988,
+      "id": "1777473040516"
+    },
+    {
+      "name": "Калитка №2 проспект Карла Маркса",
+      "location": "проспект Карла Маркса",
+      "type": "gate",
+      "status": "open",
+      "lat": 54.986503,
+      "lng": 82.902396,
+      "id": "1777473223728"
+    },
+    {
+      "name": "Шлакбаум №1 Космическая улица",
+      "location": "Космическая улица",
+      "type": "barrier",
+      "status": "open",
+      "lat": 54.986307,
+      "lng": 82.902652,
+      "id": "1777473504329"
+    },
+    {
+      "name": "Шлагбаум №2",
+      "location": "Территория НГТУ со стороны Космической улицы",
+      "type": "barrier",
+      "status": "open",
+      "lat": 54.986429,
+      "lng": 82.90282,
+      "id": "1777473615636"
+    },
+    {
+      "name": "Шлагбаум №2 Космическая улица",
+      "location": "Космическая улица",
+      "type": "barrier",
+      "status": "open",
+      "lat": 54.98597,
+      "lng": 82.903161,
+      "id": "1777473693832"
+    },
+    {
+      "name": "Шлагбаум №3 Космическая улица",
+      "location": "Космическая улица",
+      "type": "barrier",
+      "status": "open",
+      "lat": 54.985358,
+      "lng": 82.904215,
+      "id": "1777473745450"
+    },
+    {
+      "name": "Шлагбаум №4 Космическая улица",
+      "location": "Космическая улица",
+      "type": "barrier",
+      "status": "open",
+      "lat": 54.984541,
+      "lng": 82.905835,
+      "id": "1777473794611"
+    },
+    {
+      "name": "Турникет в библиотеку",
+      "location": "Проспект Карла Маркса, 20к8а",
+      "type": "turnstile",
+      "status": "open",
+      "lat": 54.986082,
+      "lng": 82.906202,
+      "id": "1777474047916"
     }
   ],
   "employees": [
@@ -59,120 +230,524 @@
       "lastName": "Сидоров",
       "firstName": "Сидор",
       "middleName": "Сидорович",
-      "position": "Менеджер",
+      "position": "Слесарь",
       "status": "blocked"
+    },
+    {
+      "lastName": "Забалуев",
+      "firstName": "Инокентий",
+      "middleName": "Викторович",
+      "position": "Декан",
+      "status": "active",
+      "id": "1777474150724"
+    },
+    {
+      "lastName": "Гурулева",
+      "firstName": "Виктория",
+      "middleName": "Ивановна",
+      "position": "Уборщица",
+      "status": "active",
+      "id": "1777474187946"
+    },
+    {
+      "lastName": "Чернов",
+      "firstName": "Петр",
+      "middleName": "Сергеевич",
+      "position": "Преподователь",
+      "status": "active",
+      "id": "1777474263873"
+    },
+    {
+      "lastName": "Синичкин",
+      "firstName": "Семен",
+      "middleName": "Васильевич",
+      "position": "Преподователь",
+      "status": "active",
+      "id": "1777474289418"
+    },
+    {
+      "lastName": "Шустов",
+      "firstName": "Роман",
+      "middleName": "Николаевич",
+      "position": "Преподователь",
+      "status": "blocked",
+      "id": "1777474310423"
+    },
+    {
+      "lastName": "Кац",
+      "firstName": "Владимир",
+      "middleName": "Арнольдович",
+      "position": "Преподователь",
+      "status": "active",
+      "id": "1777474331722"
+    },
+    {
+      "lastName": "Абдуганиева",
+      "firstName": "Светлана",
+      "middleName": "Александровна",
+      "position": "Преподователь",
+      "status": "active",
+      "id": "1777474385273"
+    },
+    {
+      "lastName": "Быстроногов",
+      "firstName": "Илья",
+      "middleName": "Алексеевич",
+      "position": "Преподователь",
+      "status": "active",
+      "id": "1777474437594"
+    },
+    {
+      "lastName": "Власенко",
+      "firstName": "Ирина",
+      "middleName": "Владимировна",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474465912"
+    },
+    {
+      "lastName": "Вишняков",
+      "firstName": "Роман",
+      "middleName": "Александрович",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474490189"
+    },
+    {
+      "lastName": "Винокуров",
+      "firstName": "Константин",
+      "middleName": "Викторович",
+      "position": "Студент",
+      "status": "blocked",
+      "id": "1777474525831"
+    },
+    {
+      "lastName": "Гребнев",
+      "firstName": "Алексей",
+      "middleName": "Николаевич",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474551513"
+    },
+    {
+      "lastName": "Дергач",
+      "firstName": "Мария",
+      "middleName": "Николаевна",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474574347"
+    },
+    {
+      "lastName": "Егоров",
+      "firstName": "Станислав",
+      "middleName": "Виниаминович",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474593792"
+    },
+    {
+      "lastName": "Жукова",
+      "firstName": "Галина",
+      "middleName": "Михайловна",
+      "position": "Студент",
+      "status": "blocked",
+      "id": "1777474614145"
+    },
+    {
+      "lastName": "Зуев",
+      "firstName": "Тимофей",
+      "middleName": "Семенович",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474632536"
+    },
+    {
+      "lastName": "Иванов",
+      "firstName": "Роман",
+      "middleName": "Владимирович",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474660479"
+    },
+    {
+      "lastName": "Ковалева",
+      "firstName": "Татьяна",
+      "middleName": "Андреевна",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474681602"
+    },
+    {
+      "lastName": "Лебедев",
+      "firstName": "Максим",
+      "middleName": "Иванович",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474707980"
+    },
+    {
+      "lastName": "Мироманов",
+      "firstName": "Александр",
+      "middleName": "Александрович",
+      "position": "Студент",
+      "status": "blocked",
+      "id": "1777474728200"
+    },
+    {
+      "lastName": "Носиков",
+      "firstName": "Андрей",
+      "middleName": "Юрьевич",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474759674"
+    },
+    {
+      "lastName": "Рейнгард",
+      "firstName": "Сергей",
+      "middleName": "Васильевич",
+      "position": "Студент",
+      "status": "active",
+      "id": "1777474899881"
+    },
+    {
+      "lastName": "Шмакова",
+      "firstName": "Екатерина",
+      "middleName": "Сергеевна",
+      "position": "Студент",
+      "status": "blocked",
+      "id": "1777474921687"
     }
   ],
   "events": [
     {
-      "eventNumber": 1777278776106,
-      "timestamp": "2026-04-27T08:32:56.106Z",
+      "eventNumber": 1777470991771,
+      "timestamp": "2026-04-29T13:56:31.771Z",
       "turnstileName": "Запасной выход",
       "turnstileType": "gate",
       "employeeName": "Петров Пётр Петрович",
       "employeePosition": "Охранник",
       "result": "success",
       "description": "Успешный проход",
-      "id": "jGU_i6lWGcI"
+      "id": "1777470991777"
     },
     {
-      "eventNumber": 1777278796089,
-      "timestamp": "2026-04-27T08:33:16.089Z",
+      "eventNumber": 1777474969155,
+      "timestamp": "2026-04-29T15:02:49.155Z",
       "turnstileName": "Главный вход",
       "turnstileType": "turnstile",
-      "employeeName": "Петров Пётр Петрович",
-      "employeePosition": "Охранник",
-      "result": "blocked_turnstile",
-      "description": "Точка доступа заблокирована",
-      "id": "gBk5qQ1jR7w"
-    },
-    {
-      "eventNumber": 1777278803385,
-      "timestamp": "2026-04-27T08:33:23.385Z",
-      "turnstileName": "Запасной выход",
-      "turnstileType": "gate",
-      "employeeName": "Сидоров Сидор Сидорович",
-      "employeePosition": "Менеджер",
-      "result": "blocked_employee",
-      "description": "Сотрудник заблокирован",
-      "id": "eIlizigS-9U"
-    },
-    {
-      "eventNumber": 1777279374040,
-      "timestamp": "2026-04-27T08:42:54.040Z",
-      "turnstileName": "Запасной выход",
-      "turnstileType": "gate",
-      "employeeName": "Сидоров Сидор Сидорович",
-      "employeePosition": "Менеджер",
-      "result": "blocked_employee",
-      "description": "Сотрудник заблокирован",
-      "id": "Heu28Zy4tqE"
-    },
-    {
-      "eventNumber": 1777279377909,
-      "timestamp": "2026-04-27T08:42:57.909Z",
-      "turnstileName": "Запасной выход",
-      "turnstileType": "gate",
-      "employeeName": "Петров Пётр Петрович",
-      "employeePosition": "Охранник",
+      "employeeName": "Гурулева Виктория Ивановна",
+      "employeePosition": "Уборщица",
       "result": "success",
       "description": "Успешный проход",
-      "id": "AoXkSe4qi64"
+      "id": "1777474969160"
     },
     {
-      "eventNumber": 1777279381372,
-      "timestamp": "2026-04-27T08:43:01.372Z",
+      "eventNumber": 1777474988185,
+      "timestamp": "2026-04-29T15:03:08.185Z",
+      "turnstileName": "Ворота перед 2 корпусом",
+      "turnstileType": "gate",
+      "employeeName": "Иванов Иван Иванович",
+      "employeePosition": "Системный администратор",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777474988190"
+    },
+    {
+      "eventNumber": 1777475160472,
+      "timestamp": "2026-04-29T15:06:00.472Z",
+      "turnstileName": "Шлагбаум №2 с ул. Геодезическая",
+      "turnstileType": "barrier",
+      "employeeName": "Шустов Роман Николаевич",
+      "employeePosition": "Преподователь",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475160484"
+    },
+    {
+      "eventNumber": 1777475184434,
+      "timestamp": "2026-04-29T15:06:24.434Z",
+      "turnstileName": "Шлагбаум №2 с ул. Новогодней",
+      "turnstileType": "barrier",
+      "employeeName": "Винокуров Константин Викторович",
+      "employeePosition": "Студент",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475184439"
+    },
+    {
+      "eventNumber": 1777475202002,
+      "timestamp": "2026-04-29T15:06:42.002Z",
+      "turnstileName": "Шлагбаум во внутренний двор 3 корпуса",
+      "turnstileType": "barrier",
+      "employeeName": "Мироманов Александр Александрович",
+      "employeePosition": "Студент",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475202008"
+    },
+    {
+      "eventNumber": 1777475230098,
+      "timestamp": "2026-04-29T15:07:10.098Z",
       "turnstileName": "Главный вход",
       "turnstileType": "turnstile",
-      "employeeName": "Петров Пётр Петрович",
-      "employeePosition": "Охранник",
-      "result": "blocked_turnstile",
-      "description": "Точка доступа заблокирована",
-      "id": "nxagod_xq8Q"
+      "employeeName": "Власенко Ирина Владимировна",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475230103"
     },
     {
-      "eventNumber": 1777279384477,
-      "timestamp": "2026-04-27T08:43:04.477Z",
+      "eventNumber": 1777475247060,
+      "timestamp": "2026-04-29T15:07:27.059Z",
       "turnstileName": "Главный вход",
       "turnstileType": "turnstile",
-      "employeeName": "Сидоров Сидор Сидорович",
-      "employeePosition": "Менеджер",
+      "employeeName": "Вишняков Роман Александрович",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475247065"
+    },
+    {
+      "eventNumber": 1777475268038,
+      "timestamp": "2026-04-29T15:07:48.038Z",
+      "turnstileName": "Калитка №1 проспект Карла Маркса",
+      "turnstileType": "gate",
+      "employeeName": "Зуев Тимофей Семенович",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475268043"
+    },
+    {
+      "eventNumber": 1777475281873,
+      "timestamp": "2026-04-29T15:08:01.873Z",
+      "turnstileName": "Шлагбаум №3 Космическая улица",
+      "turnstileType": "barrier",
+      "employeeName": "Ковалева Татьяна Андреевна",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475281877"
+    },
+    {
+      "eventNumber": 1777475292001,
+      "timestamp": "2026-04-29T15:08:12.001Z",
+      "turnstileName": "Шлагбаум со стороны Карла Маркса",
+      "turnstileType": "barrier",
+      "employeeName": "Иванов Иван Иванович",
+      "employeePosition": "Системный администратор",
       "result": "blocked_turnstile",
       "description": "Точка доступа заблокирована",
-      "id": "zPZDVurTJDc"
+      "id": "1777475292005"
     },
     {
-      "eventNumber": 1777272860557,
-      "timestamp": "2026-04-27T06:54:20.557Z",
-      "turnstileName": "Запасной выход",
-      "turnstileType": "gate",
-      "employeeName": "Петров Пётр Петрович",
-      "employeePosition": "Охранник",
+      "eventNumber": 1777475302832,
+      "timestamp": "2026-04-29T15:08:22.832Z",
+      "turnstileName": "Шлагбаум со стороны Карла Маркса",
+      "turnstileType": "barrier",
+      "employeeName": "Иванов Роман Владимирович",
+      "employeePosition": "Студент",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475302836"
+    },
+    {
+      "eventNumber": 1777475306530,
+      "timestamp": "2026-04-29T15:08:26.530Z",
+      "turnstileName": "Шлагбаум со стороны Карла Маркса",
+      "turnstileType": "barrier",
+      "employeeName": "Иванов Роман Владимирович",
+      "employeePosition": "Студент",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475306531"
+    },
+    {
+      "eventNumber": 1777475306997,
+      "timestamp": "2026-04-29T15:08:26.997Z",
+      "turnstileName": "Шлагбаум со стороны Карла Маркса",
+      "turnstileType": "barrier",
+      "employeeName": "Иванов Роман Владимирович",
+      "employeePosition": "Студент",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475306999"
+    },
+    {
+      "eventNumber": 1777475312788,
+      "timestamp": "2026-04-29T15:08:32.787Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Иванов Роман Владимирович",
+      "employeePosition": "Студент",
       "result": "success",
       "description": "Успешный проход",
-      "id": "1777272860563"
+      "id": "1777475312792"
     },
     {
-      "eventNumber": 1777273596986,
-      "timestamp": "2026-04-27T07:06:36.986Z",
-      "turnstileName": "Запасной выход",
-      "turnstileType": "gate",
-      "employeeName": "Петров Пётр Петрович",
-      "employeePosition": "Охранник",
+      "eventNumber": 1777475362436,
+      "timestamp": "2026-04-29T15:09:22.436Z",
+      "turnstileName": "Шлагбаум №1 с ул. Геодезической",
+      "turnstileType": "barrier",
+      "employeeName": "Егоров Станислав Виниаминович",
+      "employeePosition": "Студент",
       "result": "success",
       "description": "Успешный проход",
-      "id": "1777273596990"
+      "id": "1777475362441"
     },
     {
-      "eventNumber": 1777273600632,
-      "timestamp": "2026-04-27T07:06:40.632Z",
-      "turnstileName": "Запасной выход",
+      "eventNumber": 1777475378878,
+      "timestamp": "2026-04-29T15:09:38.878Z",
+      "turnstileName": "Калитка №2 проспект Карла Маркса",
       "turnstileType": "gate",
+      "employeeName": "Дергач Мария Николаевна",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475378883"
+    },
+    {
+      "eventNumber": 1777475390551,
+      "timestamp": "2026-04-29T15:09:50.551Z",
+      "turnstileName": "Калитка №2 проспект Карла Маркса",
+      "turnstileType": "gate",
+      "employeeName": "Лебедев Максим Иванович",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475390557"
+    },
+    {
+      "eventNumber": 1777475414589,
+      "timestamp": "2026-04-29T15:10:14.588Z",
+      "turnstileName": "Шлагбаум №1 с ул. Новогодней",
+      "turnstileType": "turnstile",
       "employeeName": "Сидоров Сидор Сидорович",
-      "employeePosition": "Менеджер",
+      "employeePosition": "Слесарь",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475414594"
+    },
+    {
+      "eventNumber": 1777475451419,
+      "timestamp": "2026-04-29T15:10:51.418Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Шустов Роман Николаевич",
+      "employeePosition": "Преподователь",
       "result": "blocked_employee",
       "description": "Сотрудник заблокирован",
-      "id": "1777273600637"
+      "id": "1777475451423"
+    },
+    {
+      "eventNumber": 1777475502537,
+      "timestamp": "2026-04-29T15:11:42.537Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Носиков Андрей Юрьевич",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475502541"
+    },
+    {
+      "eventNumber": 1777475535044,
+      "timestamp": "2026-04-29T15:12:15.044Z",
+      "turnstileName": "Калитка №1",
+      "turnstileType": "gate",
+      "employeeName": "Рейнгард Сергей Васильевич",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475535050"
+    },
+    {
+      "eventNumber": 1777475588935,
+      "timestamp": "2026-04-29T15:13:08.935Z",
+      "turnstileName": "Шлагбаум №2 с ул. Геодезическая",
+      "turnstileType": "barrier",
+      "employeeName": "Шмакова Екатерина Сергеевна",
+      "employeePosition": "Студент",
+      "result": "blocked_turnstile",
+      "description": "Точка доступа заблокирована",
+      "id": "1777475588942"
+    },
+    {
+      "eventNumber": 1777475613751,
+      "timestamp": "2026-04-29T15:13:33.751Z",
+      "turnstileName": "Турникет в библиотеку",
+      "turnstileType": "turnstile",
+      "employeeName": "Чернов Петр Сергеевич",
+      "employeePosition": "Преподователь",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475613757"
+    },
+    {
+      "eventNumber": 1777475636833,
+      "timestamp": "2026-04-29T15:13:56.832Z",
+      "turnstileName": "Калитка №2 проспект Карла Маркса",
+      "turnstileType": "gate",
+      "employeeName": "Кац Владимир Арнольдович",
+      "employeePosition": "Преподователь",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475636838"
+    },
+    {
+      "eventNumber": 1777475660256,
+      "timestamp": "2026-04-29T15:14:20.256Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Абдуганиева Светлана Александровна",
+      "employeePosition": "Преподователь",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475660261"
+    },
+    {
+      "eventNumber": 1777475682470,
+      "timestamp": "2026-04-29T15:14:42.470Z",
+      "turnstileName": "Калитка перед 4 корпусом",
+      "turnstileType": "gate",
+      "employeeName": "Винокуров Константин Викторович",
+      "employeePosition": "Студент",
+      "result": "blocked_employee",
+      "description": "Сотрудник заблокирован",
+      "id": "1777475682475"
+    },
+    {
+      "eventNumber": 1777475696218,
+      "timestamp": "2026-04-29T15:14:56.218Z",
+      "turnstileName": "Калитка перед 4 корпусом",
+      "turnstileType": "gate",
+      "employeeName": "Гребнев Алексей Николаевич",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475696223"
+    },
+    {
+      "eventNumber": 1777475724649,
+      "timestamp": "2026-04-29T15:15:24.649Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Ковалева Татьяна Андреевна",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475724655"
+    },
+    {
+      "eventNumber": 1777475739593,
+      "timestamp": "2026-04-29T15:15:39.592Z",
+      "turnstileName": "Главный вход",
+      "turnstileType": "turnstile",
+      "employeeName": "Егоров Станислав Виниаминович",
+      "employeePosition": "Студент",
+      "result": "success",
+      "description": "Успешный проход",
+      "id": "1777475739597"
     }
   ],
   "users": [

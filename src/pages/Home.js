@@ -17,9 +17,26 @@ const getStatusText = (status) => {
 };
 
 const Home = () => {
-    const { turnstiles, deleteTurnstile, isAdmin } = useData();
+    const { turnstiles, updateTurnstile, deleteTurnstile, isAdmin } = useData();
     const [deletingId, setDeletingId] = useState(null);
+    const [togglingId, setTogglingId] = useState(null);
     const [error, setError] = useState("");
+
+    async function handleToggleStatus(turnstile) {
+        const newStatus = turnstile.status === "open" ? "blocked" : "open";
+        console.log(`[Home] Переключение статуса ${turnstile.id} на ${newStatus}`);
+        setTogglingId(turnstile.id);
+        setError("");
+        try {
+            await updateTurnstile(turnstile.id, { ...turnstile, status: newStatus });
+            console.log(`[Home] Статус ${turnstile.id} изменён`);
+        } catch (error) {
+            console.error("[Home] Ошибка переключения:", error);
+            setError(error.message || "Ошибка при изменении статуса");
+        } finally {
+            setTogglingId(null);
+        }
+    }
 
     async function handleDelete(id) {
         if (window.confirm("Удалить эту точку доступа?")) {
@@ -58,7 +75,7 @@ const Home = () => {
                             <th>Тип</th>
                             <th>Расположение</th>
                             <th>Статус</th>
-                            {isAdmin && <th>Действия</th>}
+                            <th>Действия</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,16 +93,31 @@ const Home = () => {
                                 <td style={{ color: item.status === "open" ? "green" : "red" }}>
                                     {getStatusText(item.status)}
                                 </td>
-                                {isAdmin && (
-                                    <td>
+                                <td style={{ whiteSpace: "nowrap" }}>
+                                    <button 
+                                        onClick={() => handleToggleStatus(item)}
+                                        disabled={togglingId === item.id}
+                                        style={{ 
+                                            marginRight: "5px",
+                                            backgroundColor: item.status === "open" ? "#dc3545" : "#28a745",
+                                            color: "white",
+                                            border: "none",
+                                            padding: "4px 8px",
+                                            borderRadius: "3px",
+                                            cursor: "pointer"
+                                        }}
+                                    >
+                                        {togglingId === item.id ? "..." : (item.status === "open" ? "Заблокировать" : "Открыть")}
+                                    </button>
+                                    {isAdmin && (
                                         <button 
                                             onClick={() => handleDelete(item.id)} 
                                             disabled={deletingId === item.id}
                                         >
                                             {deletingId === item.id ? "Удаление..." : "Удалить"}
                                         </button>
-                                    </td>
-                                )}
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

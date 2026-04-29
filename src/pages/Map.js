@@ -199,21 +199,21 @@ const Map = () => {
                         {turnstile.status === "open" ? "Открыт" : "Заблокирован"}
                       </span>
                     </p>
-                    {isAdmin && (
-                      <div style={{ display: "flex", gap: "8px" }}>
-                        <button
-                          onClick={(e) => handleToggleStatus(turnstile, e)}
-                          style={{
-                            padding: "5px 10px",
-                            backgroundColor: turnstile.status === "open" ? "#dc3545" : "#28a745",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "3px",
-                            cursor: "pointer",
-                          }}
-                        >
-                          {turnstile.status === "open" ? "Заблокировать" : "Открыть"}
-                        </button>
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <button
+                        onClick={(e) => handleToggleStatus(turnstile, e)}
+                        style={{
+                          padding: "5px 10px",
+                          backgroundColor: turnstile.status === "open" ? "#dc3545" : "#28a745",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "3px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {turnstile.status === "open" ? "Заблокировать" : "Открыть"}
+                      </button>
+                      {isAdmin && (
                         <button
                           onClick={() => navigate(`/detail/${turnstile.id}`)}
                           style={{
@@ -227,8 +227,8 @@ const Map = () => {
                         >
                           Редактировать
                         </button>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </Popup>
               </Marker>

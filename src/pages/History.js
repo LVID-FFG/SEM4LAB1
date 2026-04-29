@@ -1,6 +1,7 @@
-// History.js - История проходов с фильтрацией
-import React, { useState, useMemo } from 'react';
+// History.js - История проходов
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useData } from '../App';
+import { eventApi } from '../api';
 
 const getTypeName = (type) => {
     const types = {
@@ -13,9 +14,9 @@ const getTypeName = (type) => {
 
 const getResultBadge = (result) => {
     const badges = {
-        'success': { text: '✅ Успех', color: '#d4edda', textColor: '#155724' },
-        'blocked_turnstile': { text: '🚫 Турникет заблокирован', color: '#f8d7da', textColor: '#721c24' },
-        'blocked_employee': { text: '🚫 Сотрудник заблокирован', color: '#fff3cd', textColor: '#856404' }
+        'success': { text: 'Успех', color: '#d4edda', textColor: '#155724' },
+        'blocked_turnstile': { text: 'Турникет заблокирован', color: '#f8d7da', textColor: '#721c24' },
+        'blocked_employee': { text: 'Сотрудник заблокирован', color: '#fff3cd', textColor: '#856404' }
     };
     return badges[result] || { text: result, color: '#e2e3e5', textColor: '#383d41' };
 };
@@ -34,59 +35,97 @@ const formatDate = (dateString) => {
 
 const History = () => {
     const { events } = useData();
+    const [localEvents, setLocalEvents] = useState([]);
     
-    // Состояния фильтров
     const [filterResult, setFilterResult] = useState('all');
     const [filterEmployee, setFilterEmployee] = useState('');
     const [filterTurnstile, setFilterTurnstile] = useState('');
-    const [sortOrder, setSortOrder] = useState('desc'); // 'desc' или 'asc'
-    
-    // Фильтрация и сортировка событий
-    const filteredEvents = useMemo(() => {
-        let filtered = [...events];
+    const [sortOrder, setSortOrder] = useState('desc');
+    const [isAutoRefresh, setIsAutoRefresh] = useState(true);
+
+    // Функция загрузки событий с сервера
+    const loadEvents = useCallback(async () => {
+        const result = await eventApi.getAll();
+        if (!result.error && result.data) {
+            setLocalEvents(result.data);
+        }
+    }, []);
+
+    // При монтировании подгружаем события
+    useEffect(() => {
+        loadEvents();
+    }, [loadEvents]);
+
+    // Синхронизируем с глобальным состоянием (события, добавленные на этой же вкладке)
+    useEffect(() => {
+        if (events.length > 0) {
+            setLocalEvents(prev => {
+                const existingIds = new Set(prev.map(e => e.id));
+                const newEvents = events.filter(e => !existingIds.has(e.id));
+                return [...newEvents, ...prev];
+            });
+        }
+    }, [events]);
+
+    // Автообновление по интервалу (каждые 5 секунд)
+    useEffect(() => {
+        if (!isAutoRefresh) return;
         
-        // Фильтр по результату
+        const interval = setInterval(() => {
+            loadEvents();
+        }, 5000);
+        
+        return () => clearInterval(interval);
+    }, [isAutoRefresh, loadEvents]);
+
+    const filteredEvents = useMemo(() => {
+        let filtered = [...localEvents];
+        
         if (filterResult !== 'all') {
             filtered = filtered.filter(e => e.result === filterResult);
         }
         
-        // Фильтр по сотруднику
         if (filterEmployee.trim()) {
             filtered = filtered.filter(e => 
                 e.employeeName.toLowerCase().includes(filterEmployee.toLowerCase())
             );
         }
         
-        // Фильтр по точке доступа
         if (filterTurnstile.trim()) {
             filtered = filtered.filter(e => 
                 e.turnstileName.toLowerCase().includes(filterTurnstile.toLowerCase())
             );
         }
         
-        // Сортировка по времени
         filtered.sort((a, b) => {
             const comparison = new Date(b.timestamp) - new Date(a.timestamp);
             return sortOrder === 'desc' ? comparison : -comparison;
         });
         
         return filtered;
-    }, [events, filterResult, filterEmployee, filterTurnstile, sortOrder]);
-    
-    // Статистика
+    }, [localEvents, filterResult, filterEmployee, filterTurnstile, sortOrder]);
+
     const stats = useMemo(() => {
-        const total = events.length;
-        const success = events.filter(e => e.result === 'success').length;
-        const blocked = events.filter(e => e.result !== 'success').length;
+        const total = localEvents.length;
+        const success = localEvents.filter(e => e.result === 'success').length;
+        const blocked = localEvents.filter(e => e.result !== 'success').length;
         
         return { total, success, blocked };
-    }, [events]);
-
-    console.log(`[History] Отображение ${filteredEvents.length} из ${events.length} событий`);
+    }, [localEvents]);
 
     return (
         <div>
-            <h1>История проходов</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h1>История проходов</h1>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                    <input 
+                        type="checkbox" 
+                        checked={isAutoRefresh} 
+                        onChange={(e) => setIsAutoRefresh(e.target.checked)} 
+                    />
+                    Автообновление (5 сек)
+                </label>
+            </div>
             
             {/* Статистика */}
             <div style={{ 
@@ -155,9 +194,9 @@ const History = () => {
                         style={{ padding: '6px' }}
                     >
                         <option value="all">Все</option>
-                        <option value="success">✅ Успешные</option>
-                        <option value="blocked_turnstile">🚫 Турникет заблокирован</option>
-                        <option value="blocked_employee">🚫 Сотрудник заблокирован</option>
+                        <option value="success">Успешные</option>
+                        <option value="blocked_turnstile">Турникет заблокирован</option>
+                        <option value="blocked_employee">Сотрудник заблокирован</option>
                     </select>
                 </div>
                 
@@ -195,7 +234,7 @@ const History = () => {
                         onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
                         style={{ padding: '6px 12px', cursor: 'pointer' }}
                     >
-                        {sortOrder === 'desc' ? '↓ Новые сверху' : '↑ Старые сверху'}
+                        {sortOrder === 'desc' ? 'Новые сверху' : 'Старые сверху'}
                     </button>
                 </div>
                 
@@ -220,7 +259,7 @@ const History = () => {
                     backgroundColor: '#f8f9fa',
                     borderRadius: '5px'
                 }}>
-                    {events.length === 0 
+                    {localEvents.length === 0 
                         ? 'Нет событий. Выполните попытку прохода на странице «Попытка прохода».' 
                         : 'Нет событий, соответствующих фильтрам.'}
                 </div>

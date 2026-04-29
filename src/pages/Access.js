@@ -154,7 +154,7 @@ const Access = () => {
         const currentEmployee = employees.find(emp => emp.id === selectedEmployee.id);
         
         if (!currentEmployee) {
-            const msg = `❌ ОШИБКА. Сотрудник не найден в базе данных.`;
+            const msg = `ОШИБКА. Сотрудник не найден в базе данных.`;
             console.log('[Access]', msg);
             setMessage(msg);
             setMessageType("error");
@@ -171,7 +171,7 @@ const Access = () => {
 
         // Проверка статуса точки доступа
         if (turnstile.status === "blocked") {
-            const msg = `❌ ТОЧКА ДОСТУПА ЗАБЛОКИРОВАНА. Проход через "${turnstile.name}" (${getTypeName(turnstile.type)}) невозможен.`;
+            const msg = `ТОЧКА ДОСТУПА ЗАБЛОКИРОВАНА. Проход через "${turnstile.name}" (${getTypeName(turnstile.type)}) невозможен.`;
             console.log('[Access]', msg);
             setMessage(msg);
             setMessageType("error");
@@ -191,7 +191,7 @@ const Access = () => {
 
         // Проверка статуса сотрудника
         if (currentEmployee.status === 'blocked') {
-            const msg = `❌ ОТКАЗ. Сотрудник ${currentEmployee.lastName} ${currentEmployee.firstName} (${currentEmployee.position || 'без должности'}) заблокирован. Доступ запрещён.`;
+            const msg = `ОТКАЗ. Сотрудник ${currentEmployee.lastName} ${currentEmployee.firstName} (${currentEmployee.position || 'без должности'}) заблокирован. Доступ запрещён.`;
             console.log('[Access]', msg);
             setMessage(msg);
             setMessageType("error");
@@ -210,7 +210,7 @@ const Access = () => {
         }
 
         // Успешный проход
-        const msg = `✅ УСПЕХ. Сотрудник ${currentEmployee.lastName} ${currentEmployee.firstName} (${currentEmployee.position || 'без должности'}) прошёл через "${turnstile.name}" (${getTypeName(turnstile.type)}).`;       
+        const msg = `УСПЕХ. Сотрудник ${currentEmployee.lastName} ${currentEmployee.firstName} (${currentEmployee.position || 'без должности'}) прошёл через "${turnstile.name}" (${getTypeName(turnstile.type)}).`;       
 
         console.log('[Access]', msg);
         setMessage(msg);
@@ -256,7 +256,7 @@ const Access = () => {
     return (
         <div>
             <h1>Попытка прохода через точку доступа</h1>
-            
+
             <div style={{ border: "1px solid #ccc", padding: "20px", borderRadius: "5px" }}>
                 <form onSubmit={attemptAccess}>
                     {/* Выбор точки доступа */}
@@ -372,7 +372,7 @@ const Access = () => {
                                             fontSize: '0.85em',
                                             color: emp.status === 'active' ? '#28a745' : '#dc3545'
                                         }}>
-                                            {emp.status === 'active' ? '✅' : '🚫'}
+                                            {emp.status === 'active' ? 'Активен' : 'Неактивен'}
                                         </span>
                                     </div>
                                 ))}
@@ -425,7 +425,7 @@ const Access = () => {
             
             {/* Подсказка */}
             <div style={{ marginTop: "10px", color: "#666", fontSize: "0.9em" }}>
-                💡 Начните вводить фамилию — и выберите сотрудника из выпадающего списка. Можно использовать стрелки ↑↓ и Enter.
+                Начните вводить фамилию — и выберите сотрудника из выпадающего списка. Можно использовать стрелки и Enter.
             </div>
             
             {/* Кнопка перехода к истории */}
@@ -442,7 +442,7 @@ const Access = () => {
                         cursor: "pointer"
                     }}
                 >
-                    📋 Показать историю проходов
+                    Показать историю проходов
                 </button>
             </div>
         </div>
